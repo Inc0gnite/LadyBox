@@ -53,8 +53,8 @@ html {
 body {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: 1.125rem;
+  line-height: 1.68;
   font-weight: 500;
   color: var(--text);
   background: var(--bg);
@@ -144,7 +144,7 @@ img {
 .logo {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.05rem, 2.4vw + 0.65rem, 2rem);
+  font-size: clamp(1.2rem, 2.75vw + 0.75rem, 2.9rem);
   letter-spacing: 0.02em;
   line-height: 1.2;
   color: var(--accent-deep);
@@ -156,6 +156,48 @@ img {
   line-height: 1.2;
   min-width: 0;
   flex-shrink: 1;
+}
+
+/* Celular: logo grande a la izquierda + «Cotizar» píldora a la derecha (sin nav) */
+@media (max-width: 719px) {
+  .site-header {
+    background: rgba(255, 248, 250, 0.96);
+  }
+
+  .site-header .header-inner {
+    padding-block: 0.85rem 0.95rem;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .site-header .logo {
+    font-size: clamp(1.55rem, 7.5vw + 0.35rem, 2.5rem);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: 0.03em;
+    color: var(--accent-deep);
+  }
+
+  .site-header .logo--brand {
+    line-height: 1.02;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .site-header .header-inner > .btn.btn--primary.btn--small {
+    padding: 0.55rem 1.25rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    background: var(--accent-deep);
+    color: #fffcfd;
+    box-shadow: 0 2px 14px rgba(158, 74, 102, 0.28);
+  }
+
+  .site-header .header-inner > .btn.btn--primary.btn--small:hover {
+    filter: brightness(1.06);
+    box-shadow: 0 4px 18px rgba(158, 74, 102, 0.35);
+    color: #fffcfd;
+  }
 }
 
 .logo__img {
@@ -171,20 +213,48 @@ img {
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.65rem 1rem;
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   color: var(--text-muted);
 }
 
 @media (min-width: 720px) {
   .nav {
     display: flex;
+    font-size: 1.0625rem;
+    gap: 0.75rem 1.15rem;
+  }
+
+  .header-inner > .btn--small {
+    font-size: 1.0625rem;
+    padding: 0.55rem 1.2rem;
   }
 }
 
 @media (min-width: 960px) {
   .nav {
-    font-size: 0.875rem;
-    gap: 1.1rem 1.35rem;
+    font-size: 1.125rem;
+    gap: 1rem 1.45rem;
+  }
+
+  .header-inner > .btn--small {
+    font-size: 1.125rem;
+    padding: 0.58rem 1.35rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .nav {
+    font-size: 1.1875rem;
+    gap: 1.1rem 1.65rem;
+  }
+
+  .header-inner > .btn--small {
+    font-size: 1.1875rem;
+    padding: 0.62rem 1.45rem;
+  }
+
+  .header-inner .logo {
+    font-size: clamp(2.45rem, 2.2vw + 1.35rem, 3.15rem);
   }
 }
 
@@ -196,7 +266,7 @@ img {
   justify-content: center;
   padding: 0.75rem 1.25rem;
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
   font-weight: 600;
   border-radius: 999px;
   border: 1px solid transparent;
@@ -210,7 +280,7 @@ img {
 
 .btn--small {
   padding: 0.5rem 1rem;
-  font-size: 0.875rem;
+  font-size: 1rem;
 }
 
 .btn--primary {
@@ -255,7 +325,7 @@ img {
 
 .btn--large {
   padding: 0.95rem 1.75rem;
-  font-size: 1rem;
+  font-size: 1.125rem;
 }
 
 /* Hero */
@@ -282,7 +352,7 @@ img {
   display: inline-block;
   margin: 0 0 1.1rem;
   padding: 0.4rem 0.9rem;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -295,7 +365,7 @@ img {
 .hero h1 {
   margin: 0 0 1rem;
   font-family: var(--font-display);
-  font-size: clamp(2.15rem, 4.8vw, 3rem);
+  font-size: clamp(2.4rem, 5.5vw, 3.45rem);
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0.01em;
@@ -304,7 +374,7 @@ img {
 
 .lead {
   margin: 0 0 1.75rem;
-  font-size: 1.0625rem;
+  font-size: 1.1875rem;
   color: var(--text-muted);
   max-width: 42ch;
 }
@@ -328,13 +398,13 @@ img {
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   color: var(--text-muted);
 }
 
 .trust strong {
   display: block;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--accent-deep);
   font-family: var(--font-display);
@@ -515,7 +585,7 @@ img {
 .section-media__cap {
   margin: 0;
   padding: 0.5rem 0.85rem 0.65rem;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   color: var(--text-muted);
   line-height: 1.4;
   background: rgba(255, 252, 253, 0.95);
@@ -543,7 +613,7 @@ img {
 .section-head h2 {
   margin: 0 0 0.35rem;
   font-family: var(--font-display);
-  font-size: clamp(1.65rem, 3.2vw, 2.15rem);
+  font-size: clamp(1.85rem, 3.8vw, 2.45rem);
   font-weight: 600;
   color: var(--accent-deep);
   letter-spacing: 0.02em;
@@ -562,8 +632,8 @@ img {
 .section-head p {
   margin: 1rem 0 0;
   color: var(--text-muted);
-  font-size: 1.02rem;
-  line-height: 1.6;
+  font-size: 1.125rem;
+  line-height: 1.65;
 }
 
 /* Features */
@@ -626,14 +696,14 @@ img {
 
 .feature h3 {
   margin: 0 0 0.5rem;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--accent-deep);
 }
 
 .feature p {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
   color: var(--text-muted);
 }
 
@@ -646,9 +716,9 @@ img {
 
 .prose p {
   margin: 0 0 1.1rem;
-  font-size: 1.02rem;
+  font-size: 1.125rem;
   color: var(--text-muted);
-  line-height: 1.7;
+  line-height: 1.72;
 }
 
 .prose p:last-child {
@@ -684,14 +754,14 @@ img {
 
 .cotizar-panel__lead {
   margin: 0 0 1.35rem;
-  font-size: 1.05rem;
+  font-size: 1.125rem;
   color: var(--text-muted);
   line-height: 1.65;
 }
 
 .cotizar-panel__hint {
   margin: 1.25rem 0 0;
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   color: var(--text-muted);
   line-height: 1.5;
 }
@@ -755,12 +825,12 @@ img {
 
 .contact-link__name {
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1.125rem;
   color: var(--accent-deep);
 }
 
 .contact-link__handle {
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   color: var(--text-muted);
 }
 
@@ -789,7 +859,7 @@ img {
 .wa-dialog__title {
   margin: 0 0 1rem;
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.65rem;
   font-weight: 600;
   color: var(--accent-deep);
   letter-spacing: 0.02em;
@@ -801,8 +871,8 @@ img {
 
 .wa-dialog__body p {
   margin: 0 0 0.85rem;
-  font-size: 0.95rem;
-  line-height: 1.65;
+  font-size: 1.0625rem;
+  line-height: 1.68;
   color: var(--text-muted);
 }
 
@@ -843,14 +913,14 @@ img {
 
 .footer-brand {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   color: var(--text-muted);
 }
 
 .footer-credit {
   display: block;
   margin-top: 0.35rem;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   opacity: 0.9;
 }
 
@@ -859,7 +929,7 @@ img {
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.65rem 1.25rem;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   color: var(--text-muted);
 }
 
