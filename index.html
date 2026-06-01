@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/animations.css" />
 <!-- Anti-flash: aplica tema guardado antes de pintar -->
 <script>
   (function(){var t=localStorage.getItem('ladybox-theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
@@ -62,7 +63,7 @@
     <!-- Ola decorativa inferior -->
     <div class="hero-wave" aria-hidden="true">
       <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,24 C240,48 480,0 720,24 C960,48 1200,0 1440,24 L1440,48 L0,48 Z" fill="#ffffff"/>
+        <path class="wave-path" d="M0,24 C240,48 480,0 720,24 C960,48 1200,0 1440,24 L1440,48 L0,48 Z"/>
       </svg>
     </div>
 
@@ -306,7 +307,8 @@
 </main>
 
 <!-- ══════════ DIALOG ══════════ -->
-<dialog class="wa-dialog" id="wa-notice" aria-labelledby="wa-notice-title">
+<!-- Overlay propio: siempre fixed al viewport, nunca se desplaza -->
+<div class="wa-overlay" id="wa-overlay" role="dialog" aria-modal="true" aria-labelledby="wa-notice-title" hidden>
   <div class="wa-dialog__inner">
     <h3 class="wa-dialog__title" id="wa-notice-title">Antes de cotizar</h3>
     <div class="wa-dialog__body">
@@ -325,7 +327,9 @@
       <button type="button" class="btn btn--primary" id="wa-notice-confirm">Continuar a WhatsApp</button>
     </div>
   </div>
-</dialog>
+</div>
+<!-- Backdrop separado -->
+<div class="wa-backdrop" id="wa-backdrop" hidden></div>
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer class="site-footer">
