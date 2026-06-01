@@ -709,18 +709,35 @@ ul, ol { list-style: none; }
 
 /* ── DIALOG ─────────────────────────────────────── */
 .wa-dialog {
+  /* Centrado absoluto — funciona en todos los browsers */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+
   border: none;
   border-radius: var(--r-lg);
   padding: 0;
   max-width: 440px;
   width: 92vw;
-  box-shadow: 0 24px 80px rgba(28, 16, 16, .18);
+  box-shadow: 0 24px 80px rgba(28, 16, 16, .22);
   background: var(--white);
+  z-index: 9999;
+
+  /* Animación de entrada */
+  animation: dialog-in .25s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+@keyframes dialog-in {
+  from { opacity: 0; transform: translate(-50%, -46%) scale(.95); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
 .wa-dialog::backdrop {
-  background: rgba(28, 16, 16, .45);
-  backdrop-filter: blur(4px);
+  background: rgba(28, 16, 16, .5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .wa-dialog__inner    { padding: 2.5rem 2rem; }
@@ -906,4 +923,142 @@ main,
   border-radius: 50%;
   background: var(--rose);
   display: block;
+}
+
+
+/* ══════════════════════════════════════════════════
+   DARK MODE
+   ══════════════════════════════════════════════════ */
+
+/* Botón toggle */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.theme-toggle {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(232,67,122,.25);
+  background: var(--rose-pale);
+  color: var(--rose);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background .2s, border-color .2s, transform .2s;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--rose);
+  color: var(--white);
+  border-color: var(--rose);
+  transform: rotate(20deg) scale(1.05);
+}
+
+/* Por defecto muestra sol, oculta luna */
+.theme-toggle .icon-moon { display: none; }
+.theme-toggle .icon-sun  { display: block; }
+
+/* En modo oscuro muestra luna, oculta sol */
+[data-theme="dark"] .theme-toggle .icon-sun  { display: none; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+
+/* ── Variables modo oscuro ── */
+[data-theme="dark"] {
+  --cream:      #1A1014;
+  --white:      #221519;
+  --ink:        #F5EEF0;
+  --ink-soft:   #C9A8B2;
+  --muted:      #8A6370;
+  --rose-pale:  #2E1520;
+  --gold-light: #2A2010;
+}
+
+/* Header en dark */
+[data-theme="dark"] .site-header {
+  background: rgba(26,16,20,.92);
+  border-bottom-color: rgba(232,67,122,.2);
+}
+
+/* Fondo body en dark */
+[data-theme="dark"] body {
+  background-color: var(--cream);
+}
+
+[data-theme="dark"] body::before {
+  background: rgba(26,16,20,.88);
+}
+
+/* Secciones en dark */
+[data-theme="dark"] .section--alt {
+  background: rgba(26,16,20,.85);
+}
+
+[data-theme="dark"] .section--rose {
+  background: linear-gradient(135deg, rgba(40,10,20,.9) 0%, rgba(26,16,20,.9) 100%);
+}
+
+/* Cards en dark */
+[data-theme="dark"] .service-card {
+  background: #2A1820;
+  border-color: rgba(232,67,122,.15);
+}
+
+[data-theme="dark"] .section--alt .service-card {
+  background: #221519;
+}
+
+[data-theme="dark"] .contact-card {
+  background: #2A1820;
+  border-color: rgba(232,67,122,.15);
+}
+
+/* Carrusel en dark */
+[data-theme="dark"] .product-carousel__toolbar {
+  background: rgba(26,16,20,.88);
+}
+
+/* Dialog en dark */
+[data-theme="dark"] .wa-dialog {
+  background: #2A1820;
+}
+
+/* Badges en dark */
+[data-theme="dark"] .hero-badge {
+  background: #2A1820;
+  border-color: rgba(232,67,122,.2);
+}
+
+/* Footer en dark */
+[data-theme="dark"] .site-footer {
+  background: #100810;
+}
+
+/* Empresa visual en dark */
+[data-theme="dark"] .empresa-year-badge {
+  background: #2A1820;
+  border-color: rgba(232,67,122,.2);
+}
+
+/* Cotizar wrap — mantiene gradiente rose, se ve bien en dark */
+[data-theme="dark"] .cotizar-wrap {
+  box-shadow: 0 20px 60px rgba(232,67,122,.2);
+}
+
+/* Transición suave al cambiar tema */
+body,
+.site-header,
+.service-card,
+.contact-card,
+.hero-badge,
+.hero-badge2,
+.wa-dialog,
+.site-footer,
+.section--alt,
+.section--rose,
+.product-carousel__toolbar,
+.empresa-year-badge {
+  transition: background .35s ease, border-color .35s ease, color .35s ease, box-shadow .35s ease;
 }
