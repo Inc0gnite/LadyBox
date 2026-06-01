@@ -1,111 +1,83 @@
+/* ══════════════════════════════════════════════════
+   LadyBox — product-carousel.js
+   ══════════════════════════════════════════════════ */
+
 (function () {
-  var root = document.querySelector("[data-product-carousel]");
-  if (!root) return;
+  const carousels = document.querySelectorAll('[data-product-carousel]');
 
-  var track = root.querySelector(".product-carousel__track");
-  var slides = root.querySelectorAll(".product-carousel__slide");
-  var prevBtn = root.querySelector(".product-carousel__btn--prev");
-  var nextBtn = root.querySelector(".product-carousel__btn--next");
-  var dotsWrap = root.querySelector(".product-carousel__dots");
-  if (!track || !dotsWrap || !prevBtn || !nextBtn) return;
+  carousels.forEach((carousel) => {
+    const track     = carousel.querySelector('.product-carousel__track');
+    const slides    = carousel.querySelectorAll('.product-carousel__slide');
+    const dotsWrap  = carousel.querySelector('.product-carousel__dots');
+    const btnPrev   = carousel.querySelector('.product-carousel__btn--prev');
+    const btnNext   = carousel.querySelector('.product-carousel__btn--next');
 
-  var n = slides.length;
-  if (n === 0) return;
+    if (!track || !slides.length) return;
 
-  var index = 0;
-  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var autoplayDelay = reducedMotion ? 9000 : 4000;
-  var timer = null;
+    let current   = 0;
+    let autoTimer = null;
 
-  function update() {
-    track.style.transform = "translateX(-" + index * (100 / n) + "%)";
-    slides.forEach(function (slide, j) {
-      slide.setAttribute("aria-hidden", j !== index ? "true" : "false");
-    });
-    var dots = dotsWrap.querySelectorAll(".product-carousel__dot");
-    dots.forEach(function (dot, j) {
-      dot.setAttribute("aria-selected", j === index ? "true" : "false");
-    });
-  }
-
-  function go(i) {
-    index = ((i % n) + n) % n;
-    update();
-  }
-
-  function nextSlide() {
-    go(index + 1);
-  }
-
-  function prevSlide() {
-    go(index - 1);
-  }
-
-  function stopAutoplay() {
-    if (timer) {
-      window.clearInterval(timer);
-      timer = null;
-    }
-  }
-
-  function startAutoplay() {
-    stopAutoplay();
-    timer = window.setInterval(nextSlide, autoplayDelay);
-  }
-
-  function resetAutoplay() {
-    stopAutoplay();
-    startAutoplay();
-  }
-
-  for (var i = 0; i < n; i++) {
-    (function (j) {
-      var dot = document.createElement("button");
-      dot.type = "button";
-      dot.className = "product-carousel__dot";
-      dot.setAttribute("role", "tab");
-      dot.setAttribute("aria-label", "Mostrar imagen " + (j + 1) + " de " + n);
-      dot.addEventListener("click", function () {
-        go(j);
-        resetAutoplay();
-      });
+    // ── Build dots ──────────────────────────────
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'product-carousel__dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', `Ir a imagen ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
       dotsWrap.appendChild(dot);
-    })(i);
-  }
+    });
 
-  prevBtn.addEventListener("click", function () {
-    prevSlide();
-    resetAutoplay();
-  });
-  nextBtn.addEventListener("click", function () {
-    nextSlide();
-    resetAutoplay();
-  });
+    const dots = dotsWrap.querySelectorAll('.product-carousel__dot');
 
-  root.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      prevSlide();
-      resetAutoplay();
+    // ── Go to slide ─────────────────────────────
+    function goTo(index) {
+      current = (index + slides.length) % slides.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
     }
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      nextSlide();
-      resetAutoplay();
+
+    // ── Controls ────────────────────────────────
+    btnPrev && btnPrev.addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+    btnNext && btnNext.addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+
+    // ── Autoplay ────────────────────────────────
+    function startAuto() {
+      autoTimer = setInterval(() => goTo(current + 1), 4000);
     }
-  });
 
-  root.addEventListener("mouseenter", stopAutoplay);
-  root.addEventListener("mouseleave", startAutoplay);
-
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-      stopAutoplay();
-    } else {
-      startAutoplay();
+    function resetAuto() {
+      clearInterval(autoTimer);
+      startAuto();
     }
-  });
 
-  update();
-  startAutoplay();
+    startAuto();
+
+    // ── Pause on hover / focus ───────────────────
+    carousel.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    carousel.addEventListener('mouseleave', startAuto);
+    carousel.addEventListener('focusin',    () => clearInterval(autoTimer));
+    carousel.addEventListener('focusout',   startAuto);
+
+    // ── Touch / swipe support ───────────────────
+    let touchStartX = 0;
+
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) {
+        goTo(diff > 0 ? current + 1 : current - 1);
+        resetAuto();
+      }
+    }, { passive: true });
+
+    // ── Keyboard support ────────────────────────
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft')  { goTo(current - 1); resetAuto(); }
+      if (e.key === 'ArrowRight') { goTo(current + 1); resetAuto(); }
+    });
+  });
 })();
