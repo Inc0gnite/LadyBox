@@ -708,39 +708,45 @@ ul, ol { list-style: none; }
 .contact-card .c-handle { font-size: .85rem; color: var(--muted); }
 
 /* ── DIALOG ─────────────────────────────────────── */
-.wa-dialog {
-  /* Centrado absoluto — funciona en todos los browsers */
+
+/* Backdrop */
+.wa-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 10, 18, .55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 9998;
+}
+
+.wa-backdrop[hidden] { display: none; }
+
+/* Modal — siempre centrado en el viewport */
+.wa-overlay {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  margin: 0;
-
-  border: none;
-  border-radius: var(--r-lg);
-  padding: 0;
-  max-width: 440px;
-  width: 92vw;
-  box-shadow: 0 24px 80px rgba(28, 16, 16, .22);
-  background: var(--white);
   z-index: 9999;
 
-  /* Animación de entrada */
-  animation: dialog-in .25s cubic-bezier(.34,1.56,.64,1) both;
+  background: var(--white);
+  border-radius: var(--r-lg);
+  width: 92vw;
+  max-width: 440px;
+  box-shadow: 0 24px 80px rgba(15, 10, 18, .3);
+  border: 1px solid rgba(232, 67, 122, .12);
+
+  animation: dialog-in .28s cubic-bezier(.34, 1.56, .64, 1) both;
 }
 
+.wa-overlay[hidden] { display: none; }
+
 @keyframes dialog-in {
-  from { opacity: 0; transform: translate(-50%, -46%) scale(.95); }
+  from { opacity: 0; transform: translate(-50%, -48%) scale(.94); }
   to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
-.wa-dialog::backdrop {
-  background: rgba(28, 16, 16, .5);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-.wa-dialog__inner    { padding: 2.5rem 2rem; }
+.wa-dialog__inner { padding: 2.5rem 2rem; }
 
 .wa-dialog__title {
   font-family: var(--font-display);
@@ -1053,8 +1059,13 @@ main,
 }
 
 /* Dialog en dark */
-[data-theme="dark"] .wa-dialog {
+[data-theme="dark"] .wa-overlay {
   background: #1E2330;
+  border-color: rgba(232, 67, 122, .18);
+}
+
+[data-theme="dark"] .wa-backdrop {
+  background: rgba(5, 5, 10, .7);
 }
 
 /* Badge flotante hero2 — mantiene gradiente rose */
@@ -1105,4 +1116,16 @@ body,
 .product-carousel__toolbar,
 .empresa-year-badge {
   transition: background .35s ease, border-color .35s ease, color .35s ease, box-shadow .35s ease;
+}
+
+
+/* ── OLA WAVE PATH COLOR ────────────────────────── */
+/* Se ajusta automáticamente al tema */
+.wave-path {
+  fill: var(--white);
+  transition: fill .35s ease;
+}
+
+[data-theme="dark"] .wave-path {
+  fill: #161B24;
 }
