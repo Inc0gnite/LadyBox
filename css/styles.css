@@ -967,19 +967,29 @@ main,
 
 /* ── Variables modo oscuro ── */
 [data-theme="dark"] {
-  --cream:      #1A1014;
-  --white:      #221519;
-  --ink:        #F5EEF0;
-  --ink-soft:   #C9A8B2;
-  --muted:      #8A6370;
-  --rose-pale:  #2E1520;
-  --gold-light: #2A2010;
+  /* Fondos: azul pizarra profundo */
+  --cream:      #0F1218;
+  --white:      #161B24;
+
+  /* Textos */
+  --ink:        #F0EBF4;
+  --ink-soft:   #B8A9C4;
+  --muted:      #7A6B8A;
+
+  /* Rosa/acento — se mantiene igual para consistencia de marca */
+  --rose:       #E8437A;
+  --rose-light: #F2799D;
+  --rose-pale:  #1E1028;
+
+  /* Dorado más cálido en dark */
+  --gold:       #D4A853;
+  --gold-light: #1C1808;
 }
 
 /* Header en dark */
 [data-theme="dark"] .site-header {
-  background: rgba(26,16,20,.92);
-  border-bottom-color: rgba(232,67,122,.2);
+  background: rgba(15, 18, 24, .95);
+  border-bottom-color: rgba(232, 67, 122, .18);
 }
 
 /* Fondo body en dark */
@@ -988,65 +998,99 @@ main,
 }
 
 [data-theme="dark"] body::before {
-  background: rgba(26,16,20,.88);
+  background: rgba(15, 18, 24, .90);
 }
 
 /* Secciones en dark */
 [data-theme="dark"] .section--alt {
-  background: rgba(26,16,20,.85);
+  background: rgba(22, 27, 36, .92);
 }
 
 [data-theme="dark"] .section--rose {
-  background: linear-gradient(135deg, rgba(40,10,20,.9) 0%, rgba(26,16,20,.9) 100%);
+  background: linear-gradient(135deg, rgba(18, 10, 28, .95) 0%, rgba(15, 18, 24, .95) 100%);
+}
+
+/* Hero en dark */
+[data-theme="dark"] .hero {
+  background: var(--cream);
+}
+
+[data-theme="dark"] .hero::before {
+  background: radial-gradient(circle, rgba(232, 67, 122, .12) 0%, transparent 70%);
+}
+
+[data-theme="dark"] .hero::after {
+  background: radial-gradient(circle, rgba(212, 168, 83, .10) 0%, transparent 70%);
 }
 
 /* Cards en dark */
 [data-theme="dark"] .service-card {
-  background: #2A1820;
-  border-color: rgba(232,67,122,.15);
+  background: #1E2330;
+  border-color: rgba(232, 67, 122, .12);
 }
 
 [data-theme="dark"] .section--alt .service-card {
-  background: #221519;
+  background: #1A1F2C;
+}
+
+[data-theme="dark"] .service-card:hover {
+  border-color: rgba(232, 67, 122, .35);
+  box-shadow: 0 8px 40px rgba(232, 67, 122, .12);
 }
 
 [data-theme="dark"] .contact-card {
-  background: #2A1820;
-  border-color: rgba(232,67,122,.15);
+  background: #1E2330;
+  border-color: rgba(232, 67, 122, .12);
+}
+
+[data-theme="dark"] .contact-card:hover {
+  box-shadow: 0 8px 40px rgba(232, 67, 122, .12);
 }
 
 /* Carrusel en dark */
 [data-theme="dark"] .product-carousel__toolbar {
-  background: rgba(26,16,20,.88);
+  background: rgba(15, 18, 24, .90);
 }
 
 /* Dialog en dark */
 [data-theme="dark"] .wa-dialog {
-  background: #2A1820;
+  background: #1E2330;
 }
 
-/* Badges en dark */
-[data-theme="dark"] .hero-badge {
-  background: #2A1820;
-  border-color: rgba(232,67,122,.2);
+/* Badge flotante hero2 — mantiene gradiente rose */
+[data-theme="dark"] .hero-badge2 {
+  box-shadow: 0 8px 30px rgba(232, 67, 122, .25);
 }
 
 /* Footer en dark */
 [data-theme="dark"] .site-footer {
-  background: #100810;
+  background: #080A0E;
 }
+
+[data-theme="dark"] .footer-nav a:hover { color: var(--rose-light); }
 
 /* Empresa visual en dark */
 [data-theme="dark"] .empresa-year-badge {
-  background: #2A1820;
-  border-color: rgba(232,67,122,.2);
+  background: #1E2330;
+  border-color: rgba(232, 67, 122, .18);
 }
 
-/* Cotizar wrap — mantiene gradiente rose, se ve bien en dark */
+/* Cotizar wrap — mantiene gradiente, ajuste sombra */
 [data-theme="dark"] .cotizar-wrap {
-  box-shadow: 0 20px 60px rgba(232,67,122,.2);
+  box-shadow: 0 20px 60px rgba(232, 67, 122, .18);
 }
 
+/* Toggle botón en dark */
+[data-theme="dark"] .theme-toggle {
+  background: #1E2330;
+  border-color: rgba(232, 67, 122, .3);
+  color: var(--rose-light);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+  background: var(--rose);
+  color: var(--white);
+}
 /* Transición suave al cambiar tema */
 body,
 .site-header,
