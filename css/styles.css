@@ -826,119 +826,55 @@ ul, ol { list-style: none; }
 
 
 /* ══════════════════════════════════════════════════
-   FIGURAS DECORATIVAS DE FONDO
+   FONDO HOJAS TROPICALES
    ══════════════════════════════════════════════════ */
 
-/* Círculos flotantes globales */
+/*
+  La imagen de fondo se coloca en images/bg-leaves.png
+  (la imagen que subiste — hojas tropicales blancas/grises)
+  Se aplica como fondo fijo en todo el sitio, muy sutil.
+*/
+
+body {
+  background-image: url('../images/bg-leaves.png');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Overlay para que las hojas queden muy tenues
+   y no compitan con el contenido */
 body::before {
   content: '';
   position: fixed;
-  width: 500px; height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(232,67,122,.06) 0%, transparent 70%);
-  top: 10vh; left: -200px;
+  inset: 0;
+  background: rgba(253, 248, 242, .82);
   pointer-events: none;
   z-index: 0;
 }
 
-body::after {
-  content: '';
-  position: fixed;
-  width: 350px; height: 350px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(212,168,83,.07) 0%, transparent 70%);
-  bottom: 5vh; right: -120px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Asegurar que el contenido quede sobre las figuras */
+/* Todo el contenido encima del overlay */
 .site-header,
 main,
 .wa-dialog,
 .site-footer { position: relative; z-index: 1; }
 
-/* Figura rombo — sección servicios */
+/* Secciones blancas y rose con overlay propio
+   para que las hojas sean aún más sutiles en esas zonas */
 .section--alt {
   position: relative;
   overflow: hidden;
+  background: rgba(255, 255, 255, .80);
 }
 
-.section--alt::before {
-  content: '';
-  position: absolute;
-  width: 320px; height: 320px;
-  border: 40px solid rgba(232,67,122,.05);
-  border-radius: 60px;
-  transform: rotate(45deg);
-  top: -100px; right: -100px;
-  pointer-events: none;
-}
-
-.section--alt::after {
-  content: '';
-  position: absolute;
-  width: 200px; height: 200px;
-  border: 30px solid rgba(212,168,83,.07);
-  border-radius: 40px;
-  transform: rotate(30deg);
-  bottom: -60px; left: -60px;
-  pointer-events: none;
-}
-
-/* Figura círculo punteado — sección rose */
 .section--rose {
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, rgba(255,240,245,.88) 0%, rgba(253,248,242,.88) 100%);
 }
 
-.section--rose::before {
-  content: '';
-  position: absolute;
-  width: 280px; height: 280px;
-  border-radius: 50%;
-  border: 2px dashed rgba(232,67,122,.15);
-  top: 30px; right: 5%;
-  pointer-events: none;
-  animation: spin-slow 30s linear infinite;
-}
-
-.section--rose::after {
-  content: '';
-  position: absolute;
-  width: 160px; height: 160px;
-  border-radius: 50%;
-  border: 2px dashed rgba(212,168,83,.2);
-  bottom: 20px; left: 8%;
-  pointer-events: none;
-  animation: spin-slow 20s linear infinite reverse;
-}
-
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-/* Puntos decorativos — hero */
-.hero-dots {
-  position: absolute;
-  top: 15%; right: 8%;
-  display: grid;
-  grid-template-columns: repeat(5, 8px);
-  gap: 10px;
-  pointer-events: none;
-  z-index: 0;
-  opacity: .35;
-}
-
-.hero-dots span {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--rose);
-  display: block;
-}
-
-/* Línea decorativa ondulada — debajo del hero */
+/* Ola decorativa inferior del hero */
 .hero-wave {
   position: absolute;
   bottom: -2px; left: 0; right: 0;
@@ -951,4 +887,23 @@ main,
   display: block;
   width: 100%;
   height: 48px;
+}
+
+/* Puntos decorativos — hero */
+.hero-dots {
+  position: absolute;
+  top: 15%; right: 8%;
+  display: grid;
+  grid-template-columns: repeat(5, 8px);
+  gap: 10px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .3;
+}
+
+.hero-dots span {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--rose);
+  display: block;
 }
