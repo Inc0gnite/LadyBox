@@ -125,7 +125,7 @@ ul, ol { list-style: none; }
 .site-header {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 100;
+  z-index: 10000;
   background: rgba(253, 248, 242, .92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -874,14 +874,15 @@ body::before {
   inset: 0;
   background: rgba(253, 248, 242, .82);
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 
 /* Todo el contenido encima del overlay */
-.site-header,
 main,
 .wa-dialog,
 .site-footer { position: relative; z-index: 1; }
+/* Header siempre encima de todo */
+.site-header { z-index: 10000; }
 
 /* Secciones blancas y rose con overlay propio
    para que las hojas sean aún más sutiles en esas zonas */
